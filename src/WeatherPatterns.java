@@ -7,7 +7,7 @@
  */
 
 public class WeatherPatterns {
-
+    public static int[] temps;
 
     /**
      * Longest Warming Trend
@@ -15,18 +15,18 @@ public class WeatherPatterns {
      * @return the longest run of days with increasing temperatures
      */
     public static int longestWarmingTrend(int[] temperatures) {
-
-        return recursive(temperatures[0], Integer.MIN_VALUE, 0, 0, temperatures);
+        temps = temperatures;
+        return recursive(temperatures[0], Integer.MIN_VALUE, 0, 0);
     }
 
-    public static int recursive(int nowNum, int prevNum, int length, int pos, int[] temperatures) {
+    public static int recursive(int nowNum, int prevNum, int length, int pos) {
         if (nowNum <= prevNum) {
             return length;
         }
 
         int maxStreak = 0;
-        for (int i = pos; i < temperatures.length; i++) {
-            maxStreak = Math.max(maxStreak, recursive(temperatures[i], nowNum, length+1, i, temperatures));
+        for (int i = pos; i < temps.length; i++) {
+            maxStreak = Math.max(maxStreak, recursive(temps[i], nowNum, length+1, i));
         }
 
         return maxStreak;
